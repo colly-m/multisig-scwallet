@@ -7,7 +7,7 @@ import {Create2} from "@openzeppelin/contracts/utils/Create2.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 contract WalletFactory {
-    Wallet public immutable walletImplemenatation;
+    Wallet public immutable walletImplementation;
 
     constructor(IEntryPoint entryPoint) {
 	walletImplementation = new Wallet(entryPoint, address(this));
@@ -27,9 +27,9 @@ contract WalletFactory {
 	}
 
 	// If the code is empty, deploy a new wallet
-	bytes memory walletInit = abi.encodeCall(Wallet.initialize, owner);
+	bytes memory walletInit = abi.encodeCall(Wallet.initialize, owners);
 	ERC1967Proxy proxy = new ERC1967Proxy{salt: bytes32(salt)}(
-	    address(walletImplemenattion),
+	    address(walletImplementation),
 	    walletInit
 	);
 
